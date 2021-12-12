@@ -3,7 +3,7 @@ import csv
 import requests
 from datetime import datetime
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from covid_cases_app.models import Country, CountryProvince, GlobalCovidCase, USCovidCase, State
 from django.db import IntegrityError
 
@@ -61,16 +61,17 @@ class Command(BaseCommand):
                             global_recovered_cases_row[GLOBAL_VALUE_INDEX_START:]):
 
                     date = datetime.strptime(un_formatted_date, "%m/%d/%y").strftime('%Y-%m-%d')
+
                     country, _ = Country.objects.get_or_create(name=global_confirmed_cases_row[COUNTRY_INDEX])
-                    country_province, _ = CountryProvince.objects.get_or_create(province_name=
-                                                                                global_confirmed_cases_row[
-                                                                                    PROVINCE_INDEX
-                                                                                ],
-                                                                                country_id=country.id)
+
+                    country_province, _ = CountryProvince.objects.\
+                        get_or_create(province_name=global_confirmed_cases_row[PROVINCE_INDEX],
+                                      country_id=country.id)
 
                     global_covid_cases.append(GlobalCovidCase(date=date, confirmed=confirmed, deaths=deaths,
-                                                              recovered=recovered, country_province_id=
-                                                              country_province.id, country_id=country.id))
+                                                              recovered=recovered,
+                                                              country_province_id=country_province.id,
+                                                              country_id=country.id))
 
             try:
                 GlobalCovidCase.objects.bulk_create(global_covid_cases)

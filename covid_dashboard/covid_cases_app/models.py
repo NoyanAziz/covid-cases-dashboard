@@ -12,6 +12,7 @@ class Country(models.Model):
 class CountryProvince(models.Model):
     class Meta:
         unique_together = ["province_name", "country"]
+
     province_name = models.CharField(max_length=100)
 
     country = models.ForeignKey(Country, related_name="provinces", on_delete=models.CASCADE)
