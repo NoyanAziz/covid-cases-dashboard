@@ -4,6 +4,7 @@ from covid_cases_app.models import Country, CountryProvince, GlobalCovidCase, US
 
 
 class ProvinceNameAndId(serializers.ModelSerializer):
+
     class Meta:
         model = CountryProvince
         fields = ["id", "province_name"]
@@ -41,6 +42,7 @@ class CountryProvinceSerializer(serializers.ModelSerializer):
 
 
 class StateNameAndIdSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = State
         fields = "__all__"

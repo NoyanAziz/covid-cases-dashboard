@@ -24,7 +24,7 @@ def filtered_covid_cases_get_queryset(model, params):
 
     else:
         queryset = model.objects.prefetch_related(
-            Prefetch('covid_cases', queryset=GlobalCovidCase.objects.all(), to_attr="filtered_covid_cases")
+            Prefetch("covid_cases", queryset=GlobalCovidCase.objects.all(), to_attr="filtered_covid_cases")
         )
 
         return queryset
