@@ -10,13 +10,13 @@ export const parameters = (state = initialState, action) => {
     case SET_COUNTRIES:
       return {
         ...state,
-        countries: action.searchedUsers,
+        countries: action.countries,
         provinces: [],
       };
     case SET_PROVINCES:
       return {
         ...state,
-        provinces: [],
+        provinces: action.provinces,
       };
     default:
       return state;

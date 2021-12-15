@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 
 import { Link } from "react-router-dom";
 import {
@@ -12,7 +13,13 @@ import {
   InputLabel,
 } from "@mui/material";
 
-export const GlobalSelectionBar = () => {
+import { fetchCountries } from "../../redux/actions/parametersFetchAction";
+
+export const UnconnectedGlobalSelectionBar = ({
+  fetchCountries,
+  countries,
+  provinces,
+}) => {
   const [country, setCountry] = useState("");
   const [province, setProvince] = useState("");
 
@@ -23,6 +30,10 @@ export const GlobalSelectionBar = () => {
   const handleProvinceChange = (event) => {
     setProvince(event.target.value);
   };
+
+  useEffect(() => {
+    fetchCountries();
+  }, [fetchCountries]);
 
   return (
     <Box>
@@ -38,8 +49,16 @@ export const GlobalSelectionBar = () => {
                 label="Country"
                 onChange={handleCountryChange}
               >
-                {" "}
-                <MenuItem
+                {countries.map((country) => (
+                  <MenuItem
+                    component={Link}
+                    to="/global-cases/Pakistan"
+                    value={country}
+                  >
+                    {country}
+                  </MenuItem>
+                ))}
+                {/* <MenuItem
                   component={Link}
                   to="/global-cases/Pakistan"
                   value="Pakistan"
@@ -47,7 +66,7 @@ export const GlobalSelectionBar = () => {
                   Pakistan
                 </MenuItem>
                 <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem> */}
               </Select>
             </FormControl>
 
@@ -78,3 +97,16 @@ export const GlobalSelectionBar = () => {
     </Box>
   );
 };
+
+const mapStateToProps = (state) => ({
+  countries: state.parameters.countries,
+  provinces: state.parameters.provinces,
+});
+const mapDispatchToProps = {
+  fetchCountries: fetchCountries,
+};
+
+export const GlobalSelectionBar = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UnconnectedGlobalSelectionBar);
