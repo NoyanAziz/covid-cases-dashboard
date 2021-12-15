@@ -1,11 +1,12 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from .views import CountryNameViewSet, CountryCaseViewSet, CountryProvinceCasesViewSet, GlobalCaseViewSet, \
-    USCasesViewSet, StateNameViewSet
+from .views import CountryNameViewSet, CountryProvinceNameViewSet, CountryCaseViewSet, CountryProvinceCasesViewSet, \
+    GlobalCaseViewSet, USCasesViewSet, StateNameViewSet
 
 router = DefaultRouter()
 router.register(r"countries", CountryNameViewSet, basename="countries")
+router.register(r"provinces", CountryProvinceNameViewSet, basename="provinces")
 router.register(r"country-cases", CountryCaseViewSet, basename="country-cases")
 router.register(r"country-province-cases", CountryProvinceCasesViewSet, basename="country-province-cases")
 router.register(r"global-cases", GlobalCaseViewSet, basename="global-cases")

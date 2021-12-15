@@ -10,7 +10,14 @@ class ProvinceNameAndId(serializers.ModelSerializer):
         fields = ["id", "province_name"]
 
 
-class CountryNamesSerializer(serializers.ModelSerializer):
+class CountryNameSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Country
+        fields = ["name"]
+
+
+class CountryProvinceNameSerializer(serializers.ModelSerializer):
     provinces = ProvinceNameAndId(many=True, read_only=True)
 
     class Meta:
@@ -25,7 +32,7 @@ class GlobalCaseSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class CountrySerializer(serializers.ModelSerializer):
+class CountryCaseSerializer(serializers.ModelSerializer):
     covid_cases = GlobalCaseSerializer(many=True, read_only=True, source="filtered_covid_cases")
 
     class Meta:
@@ -33,7 +40,7 @@ class CountrySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class CountryProvinceSerializer(serializers.ModelSerializer):
+class CountryProvinceCaseSerializer(serializers.ModelSerializer):
     covid_cases = GlobalCaseSerializer(many=True, read_only=True, source="filtered_covid_cases")
 
     class Meta:

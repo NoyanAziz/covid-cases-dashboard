@@ -5,8 +5,8 @@ from django.db.models import Prefetch
 from rest_framework import viewsets
 
 from covid_cases_app.models import Country, CountryProvince, GlobalCovidCase, USCovidCase, State
-from covid_cases_app.serializers import CountrySerializer, CountryProvinceSerializer, GlobalCaseSerializer, \
-    USCaseSerializer, CountryNamesSerializer, StateNameAndIdSerializer
+from covid_cases_app.serializers import CountryCaseSerializer, CountryProvinceCaseSerializer, GlobalCaseSerializer, \
+    USCaseSerializer, CountryNameSerializer, StateNameAndIdSerializer, CountryProvinceNameSerializer
 
 
 def filtered_covid_cases_get_queryset(model, params):
@@ -47,14 +47,19 @@ def filtered_global_us_get_queryset(model, params):
 
 class CountryNameViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Country.objects.all()
-    serializer_class = CountryNamesSerializer
+    serializer_class = CountryNameSerializer
+
+
+class CountryProvinceNameViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Country.objects.all()
+    serializer_class = CountryProvinceNameSerializer
 
     lookup_field = "name"
     lookup_url_kwarg = "name"
 
 
 class CountryCaseViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = CountrySerializer
+    serializer_class = CountryCaseSerializer
 
     lookup_field = "name"
     lookup_url_kwarg = "name"
@@ -64,7 +69,7 @@ class CountryCaseViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class CountryProvinceCasesViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = CountryProvinceSerializer
+    serializer_class = CountryProvinceCaseSerializer
 
     def get_queryset(self):
         return filtered_covid_cases_get_queryset(CountryProvince, self.request.query_params)

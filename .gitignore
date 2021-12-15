@@ -67,3 +67,4 @@ target/
 # Custom
 .DS_Store
 .env
+covid_dashboard_frontend/
