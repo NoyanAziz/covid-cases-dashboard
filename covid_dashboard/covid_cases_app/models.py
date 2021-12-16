@@ -2,11 +2,11 @@ from django.db import models
 
 
 class State(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
 
 
 class Country(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
 
 
 class CountryProvince(models.Model):

@@ -46,7 +46,7 @@ def filtered_global_us_get_queryset(model, params):
 
 
 class CountryNameViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Country.objects.all()
+    queryset = Country.objects.all().order_by("name")
     serializer_class = CountryNameSerializer
 
 
@@ -83,7 +83,7 @@ class GlobalCaseViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class StateNameViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = State.objects.all()
+    queryset = State.objects.all().order_by("name")
     serializer_class = StateNameAndIdSerializer
 
 
