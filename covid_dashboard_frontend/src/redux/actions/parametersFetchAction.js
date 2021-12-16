@@ -32,7 +32,7 @@ export const fetchCountries = () => async (dispatch) => {
     });
 };
 
-export const fetchProvince = (countryName) => async (dispatch) => {
+export const fetchProvinces = (countryName) => async (dispatch) => {
   axios
     .get(`http://127.0.0.1:8000/provinces/${countryName}`)
     .then((res) => {

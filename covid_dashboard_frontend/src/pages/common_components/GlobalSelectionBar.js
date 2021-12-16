@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Box,
   AppBar,
@@ -11,29 +11,49 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Typography,
 } from "@mui/material";
 
-import { fetchCountries } from "../../redux/actions/parametersFetchAction";
+import {
+  fetchCountries,
+  fetchProvinces,
+} from "../../redux/actions/parametersFetchAction";
+import { DAYS_LIST } from "../../constants";
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 export const UnconnectedGlobalSelectionBar = ({
   fetchCountries,
+  fetchProvinces,
   countries,
   provinces,
 }) => {
-  const [country, setCountry] = useState("");
-  const [province, setProvince] = useState("");
+  const query = useQuery();
+  const [selectedCountry, setSelectedCountry] = useState(query.get("country"));
+  const [selectedProvince, setSelectedProvince] = useState(
+    query.get("province")
+  );
+  const [selectedDays, setSelectedDays] = useState(DAYS_LIST[3].title);
 
   const handleCountryChange = (event) => {
-    setCountry(event.target.value);
+    setSelectedCountry(event.target.value);
+    fetchProvinces(event.target.value);
   };
 
   const handleProvinceChange = (event) => {
-    setProvince(event.target.value);
+    setSelectedProvince(event.target.value);
+  };
+
+  const handleDaysChange = (event) => {
+    setSelectedDays(event.target.value);
   };
 
   useEffect(() => {
     fetchCountries();
-  }, [fetchCountries]);
+    fetchProvinces(selectedCountry);
+  }, [fetchCountries, fetchProvinces, selectedCountry]);
 
   return (
     <Box>
@@ -45,28 +65,20 @@ export const UnconnectedGlobalSelectionBar = ({
               <Select
                 labelId="country-label"
                 id="country"
-                value={country}
+                value={selectedCountry}
                 label="Country"
                 onChange={handleCountryChange}
               >
-                {countries.map((country) => (
+                {countries.map((country, index) => (
                   <MenuItem
                     component={Link}
-                    to="/global-cases/Pakistan"
-                    value={country}
+                    to={`/global-cases?country=${country.name}`}
+                    value={country.name}
+                    key={index}
                   >
-                    {country}
+                    <Typography>{country.name}</Typography>
                   </MenuItem>
                 ))}
-                {/* <MenuItem
-                  component={Link}
-                  to="/global-cases/Pakistan"
-                  value="Pakistan"
-                >
-                  Pakistan
-                </MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem> */}
               </Select>
             </FormControl>
 
@@ -75,20 +87,48 @@ export const UnconnectedGlobalSelectionBar = ({
               <Select
                 labelId="province-label"
                 id="province"
-                value={province}
+                value={selectedProvince ? selectedProvince : "All"}
                 label="Province"
+                disabled={!selectedCountry}
                 onChange={handleProvinceChange}
               >
-                {" "}
                 <MenuItem
                   component={Link}
-                  to={`/global-cases?country=${country}&province=Punjab`}
-                  value={10}
+                  to={`/global-cases?country=${selectedCountry}&province=All`}
+                  value="All"
+                  key="All"
                 >
-                  Punjab
+                  <Typography>All</Typography>
                 </MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {provinces !== null && provinces.provinces
+                  ? provinces.provinces.map((province, index) => (
+                      <MenuItem
+                        component={Link}
+                        to={`/global-cases?country=${selectedCountry}&province=${province.province_name}`}
+                        value={province.province_name}
+                        key={index}
+                      >
+                        <Typography>{province.province_name}</Typography>
+                      </MenuItem>
+                    ))
+                  : null}
+              </Select>
+            </FormControl>
+
+            <FormControl sx={{ ml: 10, minWidth: 120 }}>
+              <InputLabel id="days-label">Days</InputLabel>
+              <Select
+                labelId="days-label"
+                id="days"
+                value={selectedDays}
+                label="Days"
+                onChange={handleDaysChange}
+              >
+                {DAYS_LIST.map((option, index) => (
+                  <MenuItem value={option.title} key={index}>
+                    <Typography>{option.title}</Typography>
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Toolbar>
@@ -104,6 +144,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = {
   fetchCountries: fetchCountries,
+  fetchProvinces: fetchProvinces,
 };
 
 export const GlobalSelectionBar = connect(

@@ -7,7 +7,7 @@ import { GlobalSelectionBar } from "./common_components/GlobalSelectionBar";
 
 export const GlobalCases = () => {
   return (
-    <Box class="div">
+    <Box className="div">
       <CasesToolbar />
       <GlobalSelectionBar />
     </Box>
