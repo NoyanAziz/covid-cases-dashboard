@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 
 import Logo from "../../Logo";
+import { TOOLBAR_OPTIONS_MARGIN_LEFT } from "../../constants";
 
 export const CasesToolbar = () => {
   return (
@@ -25,14 +26,14 @@ export const CasesToolbar = () => {
               component={Link}
               underline="none"
               to="/global-cases"
-              sx={{ ml: 5 }}
+              sx={{ ml: TOOLBAR_OPTIONS_MARGIN_LEFT }}
               style={
                 window.location.pathname.split("/")[1] === "global-cases"
                   ? { color: "#1DA1F2", textDecoration: "none" }
                   : { color: "gray", textDecoration: "none" }
               }
             >
-              Covid Cases
+              Global Covid Cases
             </Typography>
 
             <Typography
@@ -41,14 +42,14 @@ export const CasesToolbar = () => {
               component={Link}
               underline="none"
               to="/us-cases"
-              sx={{ ml: 5 }}
+              sx={{ ml: TOOLBAR_OPTIONS_MARGIN_LEFT }}
               style={
                 window.location.pathname.split("/")[1] === "us-cases"
                   ? { color: "#1DA1F2", textDecoration: "none" }
                   : { color: "gray", textDecoration: "none" }
               }
             >
-              US Cases
+              US Covid Cases
             </Typography>
           </Toolbar>
         </Container>

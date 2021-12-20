@@ -7,16 +7,16 @@ import {
   Routes,
 } from "react-router-dom";
 
-import { GlobalCases } from "./pages/GlobalCases";
-import { USCases } from "./pages/USCases";
+import { GlobalCovidCases } from "./pages/GlobalCovidCases";
+import { USCovidCases } from "./pages/USCovidCases";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/global-cases/*" element={<GlobalCases />}></Route>
-          <Route exact path="/us-cases/" element={<USCases />} />
+          <Route exact path="/global-cases/" element={<GlobalCovidCases />} />
+          <Route exact path="/us-cases/" element={<USCovidCases />} />
           <Route exact path="/" element={<Navigate to="global-cases" />} />
         </Routes>
       </Router>
