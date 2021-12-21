@@ -8,23 +8,23 @@ export const DROPDOWN_MIN_WIDTH = 120;
 export const DAYS_LIST = [
   {
     title: "Today",
-    days: 0,
-  },
-  {
-    title: "Yesterday",
     days: 1,
   },
   {
+    title: "Yesterday",
+    days: 2,
+  },
+  {
     title: "Last Week",
-    days: 7,
+    days: 8,
   },
   {
     title: "Last Month",
-    days: 30,
+    days: 31,
   },
   {
     title: "Last Year",
-    days: 365,
+    days: 366,
   },
   {
     title: "Total",
