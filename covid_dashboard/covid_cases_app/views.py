@@ -1,7 +1,9 @@
 import datetime
 
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django_filters import rest_framework as filters
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Sum, Count
 from rest_framework import viewsets
 
 from covid_cases_app.models import Country, CountryProvince, GlobalCovidCase, USCovidCase, State
@@ -13,10 +15,10 @@ def filtered_covid_cases_get_queryset(model, params):
     today = datetime.date.today()
     passed_days = params.get("days", None)
 
-    if passed_days:
+    if passed_days and passed_days.isdigit():
         starting_date = today - datetime.timedelta(days=int(passed_days))
         queryset = model.objects.prefetch_related(
-            Prefetch("covid_cases", queryset=GlobalCovidCase.objects.filter(date__gte=starting_date, ),
+            Prefetch("covid_cases", queryset=GlobalCovidCase.objects.filter(date__gte=starting_date),
                      to_attr="filtered_covid_cases")
         )
 
@@ -34,7 +36,7 @@ def filtered_global_us_get_queryset(model, params):
     today = datetime.date.today()
     passed_days = params.get("days", None)
 
-    if passed_days:
+    if passed_days and passed_days.isdigit():
         starting_date = today - datetime.timedelta(days=int(passed_days))
         queryset = model.objects.filter(date__gte=starting_date)
 
@@ -64,8 +66,30 @@ class CountryCaseViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = "name"
     lookup_url_kwarg = "name"
 
-    def get_queryset(self):
-        return filtered_covid_cases_get_queryset(Country, self.request.query_params)
+    def retrieve(self, request, name=None, *args, **kwargs):
+        country = get_object_or_404(Country.objects.all(), name=name)
+
+        today = datetime.date.today()
+        passed_days = self.request.query_params.get("days", None)
+
+        if passed_days and passed_days.isdigit():
+            starting_date = today - datetime.timedelta(days=int(passed_days))
+            covid_cases = list(GlobalCovidCase.objects
+                               .filter(country_id=country.id, date__gte=starting_date)
+                               .values("date")
+                               .order_by("date")
+                               .annotate(confirmed=Sum("confirmed"), deaths=Sum("deaths"), recovered=Sum("recovered"))
+                               )
+
+        else:
+            covid_cases = list(GlobalCovidCase.objects
+                               .filter(country_id=country.id)
+                               .values("date")
+                               .order_by("date")
+                               .annotate(confirmed=Sum("confirmed"), deaths=Sum("deaths"), recovered=Sum("recovered"))
+                               )
+
+        return JsonResponse({"covid_cases": covid_cases}, safe=False)
 
 
 class CountryProvinceCasesViewSet(viewsets.ReadOnlyModelViewSet):
