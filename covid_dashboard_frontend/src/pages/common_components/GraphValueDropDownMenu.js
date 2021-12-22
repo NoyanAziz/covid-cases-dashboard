@@ -33,8 +33,8 @@ export const GraphValueDropDownMenu = ({
         onChange={handleDaysChange}
       >
         {options.map((option, index) => (
-          <MenuItem value={option} key={index}>
-            <Typography>{option}</Typography>
+          <MenuItem value={option.value} key={index}>
+            <Typography>{option.title}</Typography>
           </MenuItem>
         ))}
       </Select>

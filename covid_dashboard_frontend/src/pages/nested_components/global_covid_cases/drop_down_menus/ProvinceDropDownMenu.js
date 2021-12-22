@@ -9,10 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import {
-  DROPDOWN_MARGIN_LEFT,
-  DROPDOWN_MIN_WIDTH,
-} from "../../../../constants";
+import { DROPDOWN_MIN_WIDTH } from "../../../../constants";
 
 export const ProvinceDropDownMenu = ({
   selectedProvince,
@@ -33,9 +30,7 @@ export const ProvinceDropDownMenu = ({
   };
 
   return (
-    <FormControl
-      sx={{ ml: DROPDOWN_MARGIN_LEFT, minWidth: DROPDOWN_MIN_WIDTH }}
-    >
+    <FormControl sx={{ minWidth: DROPDOWN_MIN_WIDTH }}>
       <InputLabel id="province-label">Province</InputLabel>
       <Select
         labelId="province-label"

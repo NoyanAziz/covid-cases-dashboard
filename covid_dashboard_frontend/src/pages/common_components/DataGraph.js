@@ -1,18 +1,18 @@
 import React from "react";
 
-import { Box } from "@mui/material";
+import { Card } from "@mui/material";
 import Chart from "react-apexcharts";
 import { getDataSeries, getGraphOptions } from "../../utils";
 
-export const DataGraph = ({ covidCases, selectedGraphValue }) => {
+export const DataGraph = ({ covidCases, selectedGraphValue, selectedArea }) => {
   return (
-    <Box className="div">
+    <Card elevation={0}>
       <Chart
-        options={getGraphOptions(selectedGraphValue)}
+        options={getGraphOptions(selectedGraphValue, selectedArea)}
         series={getDataSeries(selectedGraphValue, covidCases)}
         type="area"
-        height={600}
+        height={500}
       />
-    </Box>
+    </Card>
   );
 };

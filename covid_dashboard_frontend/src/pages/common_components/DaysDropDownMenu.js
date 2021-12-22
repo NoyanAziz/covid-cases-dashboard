@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { DROPDOWN_MARGIN_LEFT, DROPDOWN_MIN_WIDTH } from "../../constants";
+import { DROPDOWN_MIN_WIDTH } from "../../constants";
 
 export const DaysDropDownMenu = ({
   selectedDays,
@@ -35,9 +35,7 @@ export const DaysDropDownMenu = ({
   };
 
   return (
-    <FormControl
-      sx={{ ml: DROPDOWN_MARGIN_LEFT, minWidth: DROPDOWN_MIN_WIDTH }}
-    >
+    <FormControl sx={{ minWidth: DROPDOWN_MIN_WIDTH }}>
       <InputLabel id="days-label">Days</InputLabel>
 
       <Select

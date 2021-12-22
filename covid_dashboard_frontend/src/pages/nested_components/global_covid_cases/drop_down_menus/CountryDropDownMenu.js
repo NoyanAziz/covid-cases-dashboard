@@ -9,10 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import {
-  DROPDOWN_MARGIN_LEFT,
-  DROPDOWN_MIN_WIDTH,
-} from "../../../../constants";
+import { DROPDOWN_MIN_WIDTH } from "../../../../constants";
 
 export const CountryDropDownMenu = ({
   selectedCountry,
@@ -31,7 +28,9 @@ export const CountryDropDownMenu = ({
 
   return (
     <FormControl
-      sx={{ ml: DROPDOWN_MARGIN_LEFT, minWidth: DROPDOWN_MIN_WIDTH }}
+      sx={{
+        minWidth: DROPDOWN_MIN_WIDTH,
+      }}
     >
       <InputLabel id="country-label">Country</InputLabel>
       <Select

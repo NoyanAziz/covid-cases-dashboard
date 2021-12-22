@@ -2,18 +2,10 @@ export const SELECTION_BAR_MARGIN_TOP = 2;
 
 export const TOOLBAR_OPTIONS_MARGIN_LEFT = 5;
 
-export const DROPDOWN_MARGIN_LEFT = 10;
-export const DROPDOWN_MIN_WIDTH = 120;
+export const DROPDOWN_MARGIN_LEFT = 0;
+export const DROPDOWN_MIN_WIDTH = 180;
 
 export const DAYS_LIST = [
-  {
-    title: "Today",
-    days: 1,
-  },
-  {
-    title: "Yesterday",
-    days: 2,
-  },
   {
     title: "Last Week",
     days: 8,
@@ -21,6 +13,10 @@ export const DAYS_LIST = [
   {
     title: "Last Month",
     days: 31,
+  },
+  {
+    title: "Last Six Month",
+    days: 183,
   },
   {
     title: "Last Year",

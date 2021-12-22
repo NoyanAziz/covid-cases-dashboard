@@ -1,3 +1,5 @@
+import { useLocation } from "react-router-dom";
+
 export const prepareDataForGraph = (array, value) => {
   var result = [];
   if (array === null && array.length < 1) {
@@ -6,17 +8,44 @@ export const prepareDataForGraph = (array, value) => {
 
   let previousValue = array[0][value];
   for (var i = 1; i < array.length; i++) {
-    result.push({ x: array[i].date, y: array[i][value] - previousValue });
+    const standAloneValue = array[i][value] - previousValue;
+    result.push({
+      x: array[i].date,
+      y: standAloneValue < 0 ? 0 : standAloneValue,
+    });
     previousValue = array[i][value];
   }
 
   return result;
 };
 
-export const getGraphOptions = (yAxisTitle) => {
+export const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
+
+export const getGraphOptions = (selectedValue, selectedArea) => {
   return {
     chart: {
       id: "area-datetime",
+      toolbar: {
+        export: {
+          csv: {
+            filename: `${selectedArea}_covid_cases_${selectedValue}`,
+            columnDelimiter: ",",
+            headerCategory: "date",
+            headerValue: "value",
+            dateFormatter(timestamp) {
+              return new Date(timestamp).toDateString();
+            },
+          },
+          svg: {
+            filename: `${selectedArea}_covid_cases_${selectedValue}`,
+          },
+          png: {
+            filename: `${selectedArea}_covid_cases_${selectedValue}`,
+          },
+        },
+      },
       zoom: {
         autoScaleYaxis: true,
       },
@@ -25,26 +54,10 @@ export const getGraphOptions = (yAxisTitle) => {
     xaxis: {
       showForNullSeries: true,
       type: "datetime",
-      title: {
-        text: "Timeline",
-        offsetX: 0,
-        offsetY: 10,
-        style: {
-          fontSize: "20px",
-        },
-      },
     },
 
     yaxis: {
       showForNullSeries: false,
-      title: {
-        text: yAxisTitle,
-        offsetX: -5,
-        offsetY: 0,
-        style: {
-          fontSize: "20px",
-        },
-      },
     },
 
     tooltip: {
@@ -58,7 +71,7 @@ export const getGraphOptions = (yAxisTitle) => {
     },
 
     noData: {
-      text: "No data available...",
+      text: "Select an option!!!",
       style: {
         fontSize: "20px",
       },

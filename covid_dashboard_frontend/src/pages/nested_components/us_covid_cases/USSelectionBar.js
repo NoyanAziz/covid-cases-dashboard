@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import { useLocation } from "react-router-dom";
-import { Box, AppBar, Container, Toolbar } from "@mui/material";
+import { Card, List, ListItem } from "@mui/material";
 
 import { fetchStates } from "../../../redux/actions/parametersFetchAction";
-import { DAYS_LIST, SELECTION_BAR_MARGIN_TOP } from "../../../constants";
+import { DAYS_LIST } from "../../../constants";
 import { fetchStateWiseCovidCases } from "../../../redux/actions/us_cases_actions/stateWiseCovidCasesAction";
 import { DaysDropDownMenu } from "../../common_components/DaysDropDownMenu";
 import { StateDropDownMenu } from "./StateDropDownMenu";
 import { GraphValueDropDownMenu } from "../../common_components/GraphValueDropDownMenu";
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+import { useQuery } from "../../../utils";
 
 export const UnconnectedUSSelectionBar = ({
   selectedGraphValue,
@@ -25,52 +21,54 @@ export const UnconnectedUSSelectionBar = ({
   const query = useQuery();
 
   const [selectedState, setSelectedState] = useState(
-    query.get("state") ? query.get("state") : ""
+    query.get("state")
+      ? query.get("state")
+      : (window.location.search = "?state=58")
   );
 
-  const [selectedDays, setSelectedDays] = useState(DAYS_LIST[3].days);
+  const [selectedDays, setSelectedDays] = useState(DAYS_LIST[1].days);
 
   useEffect(() => {
     fetchStates();
     if (selectedState)
-      fetchStateWiseCovidCases(selectedState, DAYS_LIST[3].days);
+      fetchStateWiseCovidCases(selectedState, DAYS_LIST[1].days);
   }, [fetchStates, fetchStateWiseCovidCases, selectedState]);
 
   return (
-    <Box>
-      <AppBar
-        elevation={0}
-        color="inherit"
-        position="static"
-        sx={{ mt: SELECTION_BAR_MARGIN_TOP }}
-      >
-        <Container>
-          <Toolbar>
-            <StateDropDownMenu
-              selectedState={selectedState}
-              setSelectedState={setSelectedState}
-              fetchStateWiseCovidCases={fetchStateWiseCovidCases}
-              selectedDays={selectedDays}
-              states={states}
-            />
+    <Card elevation={0}>
+      <List>
+        <ListItem sx={{ mx: 5 }}>
+          <StateDropDownMenu
+            selectedState={selectedState}
+            setSelectedState={setSelectedState}
+            fetchStateWiseCovidCases={fetchStateWiseCovidCases}
+            selectedDays={selectedDays}
+            states={states}
+          />
+        </ListItem>
 
-            <DaysDropDownMenu
-              selectedDays={selectedDays}
-              setSelectedDays={setSelectedDays}
-              fetchStateWiseCovidCases={fetchStateWiseCovidCases}
-              selectedState={selectedState}
-              days_list={DAYS_LIST}
-            />
+        <ListItem sx={{ m: 5 }}>
+          <DaysDropDownMenu
+            selectedDays={selectedDays}
+            setSelectedDays={setSelectedDays}
+            fetchStateWiseCovidCases={fetchStateWiseCovidCases}
+            selectedState={selectedState}
+            days_list={DAYS_LIST}
+          />
+        </ListItem>
 
-            <GraphValueDropDownMenu
-              selectedGraphValue={selectedGraphValue}
-              setSelectedGraphValue={setSelectedGraphValue}
-              options={["confirmed", "deaths"]}
-            />
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </Box>
+        <ListItem sx={{ m: 5 }}>
+          <GraphValueDropDownMenu
+            selectedGraphValue={selectedGraphValue}
+            setSelectedGraphValue={setSelectedGraphValue}
+            options={[
+              { title: "Confirmed", value: "confirmed" },
+              { title: "Deaths", value: "deaths" },
+            ]}
+          />
+        </ListItem>
+      </List>
+    </Card>
   );
 };
 
