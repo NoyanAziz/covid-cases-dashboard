@@ -27,3 +27,8 @@ export const DAYS_LIST = [
     days: 1000,
   },
 ];
+
+export const GRAPH_TYPE_OPTIONS = [
+  { value: "Discrete" },
+  { value: "Cumulative" },
+];

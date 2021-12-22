@@ -15,10 +15,13 @@ import { ProvinceDropDownMenu } from "./drop_down_menus/ProvinceDropDownMenu";
 import { DaysDropDownMenu } from "../../common_components/DaysDropDownMenu";
 import { GraphValueDropDownMenu } from "../../common_components/GraphValueDropDownMenu";
 import { useQuery } from "../../../utils";
+import { GraphTypeDropDownMenu } from "../../common_components/GraphTypeDropDownMenu";
 
 export const UnconnectedGlobalSelectionCard = ({
   selectedGraphValue,
   setSelectedGraphValue,
+  selectedGraphType,
+  setSelectedGraphType,
   fetchCountries,
   fetchProvinces,
   countries,
@@ -109,6 +112,13 @@ export const UnconnectedGlobalSelectionCard = ({
               { title: "Deaths", value: "deaths" },
               { title: "Recovered", value: "recovered" },
             ]}
+          />
+        </ListItem>
+
+        <ListItem sx={{ m: 5 }}>
+          <GraphTypeDropDownMenu
+            selectedGraphType={selectedGraphType}
+            setSelectedGraphType={setSelectedGraphType}
           />
         </ListItem>
       </List>

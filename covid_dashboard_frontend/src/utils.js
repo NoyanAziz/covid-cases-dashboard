@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 
-export const prepareDataForGraph = (array, value) => {
+export const prepareDiscreteDataForGraph = (array, value) => {
   var result = [];
   if (array === null && array.length < 1) {
     return result;
@@ -14,6 +14,23 @@ export const prepareDataForGraph = (array, value) => {
       y: standAloneValue < 0 ? 0 : standAloneValue,
     });
     previousValue = array[i][value];
+  }
+
+  return result;
+};
+
+export const prepareCumulativeDataForGraph = (array, value) => {
+  var result = [];
+  if (array === null && array.length < 1) {
+    return result;
+  }
+
+  for (var i = 0; i < array.length; i++) {
+    const standAloneValue = array[i][value];
+    result.push({
+      x: array[i].date,
+      y: standAloneValue < 0 ? 0 : standAloneValue,
+    });
   }
 
   return result;
@@ -96,13 +113,15 @@ export const getGraphOptions = (selectedValue, selectedArea) => {
   };
 };
 
-export const getDataSeries = (dataSeriesValue, data) => {
+export const getDataSeries = (dataSeriesValue, data, graphType) => {
   return [
     {
       name: dataSeriesValue,
       data:
         data && data.length > 0
-          ? prepareDataForGraph(data, dataSeriesValue)
+          ? graphType === "Discrete"
+            ? prepareDiscreteDataForGraph(data, dataSeriesValue)
+            : prepareCumulativeDataForGraph(data, dataSeriesValue)
           : [],
     },
   ];

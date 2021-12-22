@@ -10,10 +10,13 @@ import { DaysDropDownMenu } from "../../common_components/DaysDropDownMenu";
 import { StateDropDownMenu } from "./StateDropDownMenu";
 import { GraphValueDropDownMenu } from "../../common_components/GraphValueDropDownMenu";
 import { useQuery } from "../../../utils";
+import { GraphTypeDropDownMenu } from "../../common_components/GraphTypeDropDownMenu";
 
 export const UnconnectedUSSelectionBar = ({
   selectedGraphValue,
   setSelectedGraphValue,
+  selectedGraphType,
+  setSelectedGraphType,
   fetchStates,
   states,
   fetchStateWiseCovidCases,
@@ -65,6 +68,12 @@ export const UnconnectedUSSelectionBar = ({
               { title: "Confirmed", value: "confirmed" },
               { title: "Deaths", value: "deaths" },
             ]}
+          />
+        </ListItem>
+        <ListItem sx={{ m: 5 }}>
+          <GraphTypeDropDownMenu
+            selectedGraphType={selectedGraphType}
+            setSelectedGraphType={setSelectedGraphType}
           />
         </ListItem>
       </List>

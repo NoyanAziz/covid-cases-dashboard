@@ -11,6 +11,7 @@ import { useQuery } from "../utils";
 export const UnconnectedUSCovidCases = ({ usCovidCases }) => {
   const query = useQuery();
   const [selectedGraphValue, setSelectedGraphValue] = useState("confirmed");
+  const [selectedGraphType, setSelectedGraphType] = useState("Discrete");
 
   return (
     <Box className="div">
@@ -39,6 +40,8 @@ export const UnconnectedUSCovidCases = ({ usCovidCases }) => {
           <USSelectionBar
             selectedGraphValue={selectedGraphValue}
             setSelectedGraphValue={setSelectedGraphValue}
+            selectedGraphType={selectedGraphType}
+            setSelectedGraphType={setSelectedGraphType}
           />
         </Grid>
 
@@ -48,6 +51,7 @@ export const UnconnectedUSCovidCases = ({ usCovidCases }) => {
           <DataGraph
             covidCases={usCovidCases}
             selectedGraphValue={selectedGraphValue}
+            selectedGraphType={selectedGraphType}
             selectedArea={query.get("state") ? query.get("state") : ""}
           />
         </Grid>

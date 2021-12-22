@@ -15,7 +15,7 @@ export const GraphValueDropDownMenu = ({
   setSelectedGraphValue,
   options,
 }) => {
-  const handleDaysChange = (event) => {
+  const handleGraphValueChange = (event) => {
     setSelectedGraphValue(event.target.value);
   };
 
@@ -23,14 +23,14 @@ export const GraphValueDropDownMenu = ({
     <FormControl
       sx={{ ml: DROPDOWN_MARGIN_LEFT, minWidth: DROPDOWN_MIN_WIDTH }}
     >
-      <InputLabel id="graph-value-label">Graph Option</InputLabel>
+      <InputLabel id="graph-value-label">Graph Value</InputLabel>
 
       <Select
         labelId="graph-value-label"
         id="graph-value"
         value={selectedGraphValue}
-        label="Graph Option"
-        onChange={handleDaysChange}
+        label="Graph Value"
+        onChange={handleGraphValueChange}
       >
         {options.map((option, index) => (
           <MenuItem value={option.value} key={index}>
