@@ -35,9 +35,9 @@ export const UnconnectedUSSelectionCard = ({
   const [selectedDays, setSelectedDays] = useState(DAYS_SELECTED_DEFAULT);
 
   useEffect(() => {
-    if (selectedState)
-      fetchStateWiseCovidCases(selectedState, DAYS_SELECTED_DEFAULT);
-  }, [fetchStates, fetchStateWiseCovidCases, selectedState]);
+    if (selectedState && selectedDays)
+      fetchStateWiseCovidCases(selectedState, selectedDays);
+  }, [fetchStates, fetchStateWiseCovidCases, selectedState, selectedDays]);
 
   return (
     <Card elevation={0}>

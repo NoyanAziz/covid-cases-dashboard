@@ -14,7 +14,12 @@ import { USSelectionCard } from "./nested_components/us_covid_cases/USSelectionC
 import { DataGraph } from "./common_components/DataGraph";
 import { useQuery } from "../utils";
 import { fetchStates } from "../redux/actions/dropdown_options_action/parametersFetchAction";
-import { PRIMARY_COLOR, STATE_SELECTED_DEFAULT } from "../constants";
+import {
+  GRAPH_TYPE_SELECTED_DEFAULT,
+  GRAPH_VALUE_SELECTED_DEFAULT,
+  PRIMARY_COLOR,
+  STATE_SELECTED_DEFAULT,
+} from "../constants";
 
 export const UnconnectedUSCovidCases = ({
   states,
@@ -26,8 +31,12 @@ export const UnconnectedUSCovidCases = ({
   usCovidCasesLoading,
 }) => {
   const query = useQuery();
-  const [selectedGraphValue, setSelectedGraphValue] = useState("confirmed");
-  const [selectedGraphType, setSelectedGraphType] = useState("Discrete");
+  const [selectedGraphValue, setSelectedGraphValue] = useState(
+    GRAPH_VALUE_SELECTED_DEFAULT
+  );
+  const [selectedGraphType, setSelectedGraphType] = useState(
+    GRAPH_TYPE_SELECTED_DEFAULT
+  );
 
   useEffect(() => {
     fetchStates();
