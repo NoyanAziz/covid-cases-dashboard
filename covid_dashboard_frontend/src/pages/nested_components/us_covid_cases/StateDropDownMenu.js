@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { DROPDOWN_MARGIN_LEFT, DROPDOWN_MIN_WIDTH } from "../../../constants";
+import { DROPDOWN_MIN_WIDTH, DROP_DOWN_LABELS } from "../../../constants";
 
 export const StateDropDownMenu = ({
   selectedState,
@@ -24,16 +24,14 @@ export const StateDropDownMenu = ({
   };
 
   return (
-    <FormControl
-      sx={{ ml: DROPDOWN_MARGIN_LEFT, minWidth: DROPDOWN_MIN_WIDTH }}
-    >
-      <InputLabel id="state-label">State</InputLabel>
+    <FormControl sx={{ minWidth: DROPDOWN_MIN_WIDTH }}>
+      <InputLabel id="state-label">{DROP_DOWN_LABELS.state}</InputLabel>
 
       <Select
         labelId="state-label"
         id="state"
         value={selectedState}
-        label="State"
+        label={DROP_DOWN_LABELS.state}
         onChange={handleStateChange}
       >
         {states.map((state) => (

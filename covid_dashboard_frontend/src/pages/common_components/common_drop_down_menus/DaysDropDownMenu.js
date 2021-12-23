@@ -8,7 +8,11 @@ import {
   Typography,
 } from "@mui/material";
 
-import { DROPDOWN_MIN_WIDTH } from "../../../constants";
+import {
+  ALL_PROVINCE_ITEM,
+  DROPDOWN_MIN_WIDTH,
+  DROP_DOWN_LABELS,
+} from "../../../constants";
 
 export const DaysDropDownMenu = ({
   selectedDays,
@@ -26,7 +30,7 @@ export const DaysDropDownMenu = ({
     if (selectedState)
       fetchStateWiseCovidCases(selectedState, event.target.value);
     else {
-      if (selectedProvince === "-1") {
+      if (selectedProvince === ALL_PROVINCE_ITEM.value) {
         fetchCountryWiseCovidCases(selectedCountry, event.target.value);
       } else {
         fetchProvinceWiseCovidCases(selectedProvince, event.target.value);
@@ -36,13 +40,13 @@ export const DaysDropDownMenu = ({
 
   return (
     <FormControl sx={{ minWidth: DROPDOWN_MIN_WIDTH }}>
-      <InputLabel id="days-label">Days</InputLabel>
+      <InputLabel id="days-label">{DROP_DOWN_LABELS.days}</InputLabel>
 
       <Select
         labelId="days-label"
         id="days"
         value={selectedDays}
-        label="Days"
+        label={DROP_DOWN_LABELS.days}
         onChange={handleDaysChange}
       >
         {days_list.map((option) => (

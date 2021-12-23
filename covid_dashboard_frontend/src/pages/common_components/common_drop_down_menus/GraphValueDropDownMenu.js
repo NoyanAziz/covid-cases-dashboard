@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { DROPDOWN_MARGIN_LEFT, DROPDOWN_MIN_WIDTH } from "../../../constants";
+import { DROPDOWN_MIN_WIDTH, DROP_DOWN_LABELS } from "../../../constants";
 
 export const GraphValueDropDownMenu = ({
   selectedGraphValue,
@@ -20,16 +20,16 @@ export const GraphValueDropDownMenu = ({
   };
 
   return (
-    <FormControl
-      sx={{ ml: DROPDOWN_MARGIN_LEFT, minWidth: DROPDOWN_MIN_WIDTH }}
-    >
-      <InputLabel id="graph-value-label">Graph Value</InputLabel>
+    <FormControl sx={{ minWidth: DROPDOWN_MIN_WIDTH }}>
+      <InputLabel id="graph-value-label">
+        {DROP_DOWN_LABELS.graphValue}
+      </InputLabel>
 
       <Select
         labelId="graph-value-label"
         id="graph-value"
         value={selectedGraphValue}
-        label="Graph Value"
+        label={DROP_DOWN_LABELS.graphValue}
         onChange={handleGraphValueChange}
       >
         {options.map((option, index) => (

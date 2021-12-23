@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { DROPDOWN_MIN_WIDTH } from "../../../../constants";
+import { DROPDOWN_MIN_WIDTH, DROP_DOWN_LABELS } from "../../../../constants";
 
 export const CountryDropDownMenu = ({
   selectedCountry,
@@ -32,12 +32,12 @@ export const CountryDropDownMenu = ({
         minWidth: DROPDOWN_MIN_WIDTH,
       }}
     >
-      <InputLabel id="country-label">Country</InputLabel>
+      <InputLabel id="country-label">{DROP_DOWN_LABELS.country}</InputLabel>
       <Select
         labelId="country-label"
         id="country"
         value={selectedCountry}
-        label="Country"
+        label={DROP_DOWN_LABELS.country}
         onChange={handleCountryChange}
       >
         {countries.map((country, index) => (

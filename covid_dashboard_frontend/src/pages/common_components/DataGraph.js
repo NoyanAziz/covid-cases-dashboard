@@ -4,6 +4,7 @@ import { Card, CircularProgress } from "@mui/material";
 import Chart from "react-apexcharts";
 
 import { getDataSeries, getGraphOptions } from "../../utils";
+import { GRAPH_HEIGHT, GRAPH_LOADER_SIZE } from "../../constants";
 
 export const DataGraph = ({
   covidCases,
@@ -15,7 +16,7 @@ export const DataGraph = ({
   return (
     <Card elevation={0}>
       {covidCasesLoading ? (
-        <CircularProgress size={60} />
+        <CircularProgress size={GRAPH_LOADER_SIZE} />
       ) : (
         <>
           <Chart
@@ -26,7 +27,7 @@ export const DataGraph = ({
               selectedGraphType
             )}
             type="area"
-            height={500}
+            height={GRAPH_HEIGHT}
           />
         </>
       )}

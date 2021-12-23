@@ -14,6 +14,7 @@ import { USSelectionCard } from "./nested_components/us_covid_cases/USSelectionC
 import { DataGraph } from "./common_components/DataGraph";
 import { useQuery } from "../utils";
 import { fetchStates } from "../redux/actions/dropdown_options_action/parametersFetchAction";
+import { PRIMARY_COLOR, STATE_SELECTED_DEFAULT } from "../constants";
 
 export const UnconnectedUSCovidCases = ({
   states,
@@ -42,7 +43,7 @@ export const UnconnectedUSCovidCases = ({
         <Typography
           component="div"
           variant="h3"
-          color="#1DA1FF"
+          color={PRIMARY_COLOR}
           style={{ fontFamily: "sans-serif" }}
         >
           US Covid Cases
@@ -80,7 +81,11 @@ export const UnconnectedUSCovidCases = ({
                 covidCasesLoading={usCovidCasesLoading}
                 selectedGraphValue={selectedGraphValue}
                 selectedGraphType={selectedGraphType}
-                selectedArea={query.get("state") ? query.get("state") : ""}
+                selectedArea={
+                  query.get("state")
+                    ? query.get("state")
+                    : STATE_SELECTED_DEFAULT
+                }
               />
             </Grid>
           </>

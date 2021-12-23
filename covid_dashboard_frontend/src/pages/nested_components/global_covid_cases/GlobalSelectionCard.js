@@ -4,11 +4,16 @@ import { connect } from "react-redux";
 import { Card, List, ListItem } from "@mui/material";
 
 import { fetchProvinces } from "../../../redux/actions/dropdown_options_action/parametersFetchAction";
-import { DAYS_LIST } from "../../../constants";
+import {
+  ALL_PROVINCE_ITEM,
+  COUNTRY_SELECTED_DEFAULT,
+  DAYS_LIST,
+  DAYS_SELECTED_DEFAULT,
+} from "../../../constants";
 import { fetchCountryWiseCovidCases } from "../../../redux/actions/global_cases_actions/countryWiseCovidCasesAction";
 import { fetchProvinceWiseCovidCases } from "../../../redux/actions/global_cases_actions/provinceWiseCovidCasesAction";
-import { CountryDropDownMenu } from "./drop_down_menus/CountryDropDownMenu";
-import { ProvinceDropDownMenu } from "./drop_down_menus/ProvinceDropDownMenu";
+import { CountryDropDownMenu } from "./global_drop_down_menus/CountryDropDownMenu";
+import { ProvinceDropDownMenu } from "./global_drop_down_menus/ProvinceDropDownMenu";
 import { DaysDropDownMenu } from "../../common_components/common_drop_down_menus/DaysDropDownMenu";
 import { GraphValueDropDownMenu } from "../../common_components/common_drop_down_menus/GraphValueDropDownMenu";
 import { useQuery } from "../../../utils";
@@ -38,22 +43,25 @@ export const UnconnectedGlobalSelectionCard = ({
   const [selectedCountry, setSelectedCountry] = useState(
     query.get("country")
       ? query.get("country")
-      : (window.location.search = "?country=Pakistan")
+      : (window.location.search = `?country=${COUNTRY_SELECTED_DEFAULT}`)
   );
 
   const [selectedProvince, setSelectedProvince] = useState(
-    query.get("province") ? query.get("province") : "-1"
+    query.get("province") ? query.get("province") : ALL_PROVINCE_ITEM.value
   );
 
-  const [selectedDays, setSelectedDays] = useState(DAYS_LIST[1].days);
+  const [selectedDays, setSelectedDays] = useState(DAYS_SELECTED_DEFAULT);
 
   useEffect(() => {
     if (selectedCountry) {
       fetchProvinces(selectedCountry);
       if (selectedProvince) {
-        if (selectedDays && selectedProvince === "-1") {
+        if (selectedDays && selectedProvince === ALL_PROVINCE_ITEM.value) {
           fetchCountryWiseCovidCases(selectedCountry, selectedDays);
-        } else if (selectedDays && selectedProvince !== "-1") {
+        } else if (
+          selectedDays &&
+          selectedProvince !== ALL_PROVINCE_ITEM.value
+        ) {
           fetchProvinceWiseCovidCases(selectedProvince, selectedDays);
         }
       }

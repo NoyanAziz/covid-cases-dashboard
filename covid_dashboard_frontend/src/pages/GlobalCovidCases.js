@@ -14,6 +14,14 @@ import { GlobalSelectionCard } from "./nested_components/global_covid_cases/Glob
 import { DataGraph } from "./common_components/DataGraph";
 import { useQuery } from "../utils";
 import { fetchCountries } from "../redux/actions/dropdown_options_action/parametersFetchAction";
+import {
+  COUNTRY_SELECTED_DEFAULT,
+  GRAPH_TYPE_SELECTED_DEFAULT,
+  GRAPH_VALUE_SELECTED_DEFAULT,
+  PAGE_LOADER_SIZE,
+  PAGE_TITLES,
+  PRIMARY_COLOR,
+} from "../constants";
 
 export const UnconnectedGlobalCovidCases = ({
   countries,
@@ -25,8 +33,12 @@ export const UnconnectedGlobalCovidCases = ({
   globalCovidCasesLoading,
 }) => {
   const query = useQuery();
-  const [selectedGraphValue, setSelectedGraphValue] = useState("confirmed");
-  const [selectedGraphType, setSelectedGraphType] = useState("Discrete");
+  const [selectedGraphValue, setSelectedGraphValue] = useState(
+    GRAPH_VALUE_SELECTED_DEFAULT
+  );
+  const [selectedGraphType, setSelectedGraphType] = useState(
+    GRAPH_TYPE_SELECTED_DEFAULT
+  );
 
   useEffect(() => {
     fetchCountries();
@@ -43,10 +55,10 @@ export const UnconnectedGlobalCovidCases = ({
         <Typography
           component="div"
           variant="h3"
-          color="#1DA1FF"
+          color={PRIMARY_COLOR}
           style={{ fontFamily: "sans-serif" }}
         >
-          Global Covid Cases
+          {PAGE_TITLES.globalCovidCases}
         </Typography>
       </Box>
 
@@ -58,7 +70,7 @@ export const UnconnectedGlobalCovidCases = ({
       >
         {countriesLoading ? (
           <Grid item xs={12}>
-            <CircularProgress size={100} />
+            <CircularProgress size={PAGE_LOADER_SIZE} />
           </Grid>
         ) : (
           <>
@@ -80,7 +92,11 @@ export const UnconnectedGlobalCovidCases = ({
                 covidCasesLoading={globalCovidCasesLoading}
                 selectedGraphValue={selectedGraphValue}
                 selectedGraphType={selectedGraphType}
-                selectedArea={query.get("country") ? query.get("country") : ""}
+                selectedArea={
+                  query.get("country")
+                    ? query.get("country")
+                    : COUNTRY_SELECTED_DEFAULT
+                }
               />
             </Grid>
           </>

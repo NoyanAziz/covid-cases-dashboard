@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { setGlobalCovidCasesLoading } from "../loading_action/loadingAction";
 import { setGlobalCovidCases } from "./globalCovidCasesAction";
 

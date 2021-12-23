@@ -11,7 +11,12 @@ import {
 } from "@mui/material";
 
 import Logo from "../../Logo";
-import { TOOLBAR_OPTIONS_MARGIN_LEFT } from "../../constants";
+import {
+  PAGE_TITLES,
+  PRIMARY_COLOR,
+  SECONDARY_COLOR,
+  TOOLBAR_OPTIONS_MARGIN_LEFT,
+} from "../../constants";
 
 export const CasesToolbar = () => {
   return (
@@ -29,11 +34,11 @@ export const CasesToolbar = () => {
               sx={{ ml: TOOLBAR_OPTIONS_MARGIN_LEFT }}
               style={
                 window.location.pathname.split("/")[1] === "global-cases"
-                  ? { color: "#1DA1F2", textDecoration: "none" }
-                  : { color: "gray", textDecoration: "none" }
+                  ? { color: PRIMARY_COLOR, textDecoration: "none" }
+                  : { color: SECONDARY_COLOR, textDecoration: "none" }
               }
             >
-              Global Covid Cases
+              {PAGE_TITLES.globalCovidCases}
             </Typography>
 
             <Typography
@@ -45,11 +50,11 @@ export const CasesToolbar = () => {
               sx={{ ml: TOOLBAR_OPTIONS_MARGIN_LEFT }}
               style={
                 window.location.pathname.split("/")[1] === "us-cases"
-                  ? { color: "#1DA1F2", textDecoration: "none" }
-                  : { color: "gray", textDecoration: "none" }
+                  ? { color: PRIMARY_COLOR, textDecoration: "none" }
+                  : { color: SECONDARY_COLOR, textDecoration: "none" }
               }
             >
-              US Covid Cases
+              {PAGE_TITLES.usCovidCases}
             </Typography>
           </Toolbar>
         </Container>

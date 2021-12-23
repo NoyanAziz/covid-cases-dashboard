@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 
 import { Card, List, ListItem } from "@mui/material";
 
-import { DAYS_LIST } from "../../../constants";
+import {
+  DAYS_LIST,
+  DAYS_SELECTED_DEFAULT,
+  STATE_SELECTED_DEFAULT,
+} from "../../../constants";
 import { fetchStateWiseCovidCases } from "../../../redux/actions/us_cases_actions/stateWiseCovidCasesAction";
 import { DaysDropDownMenu } from "../../common_components/common_drop_down_menus/DaysDropDownMenu";
 import { StateDropDownMenu } from "./StateDropDownMenu";
@@ -25,14 +29,14 @@ export const UnconnectedUSSelectionCard = ({
   const [selectedState, setSelectedState] = useState(
     query.get("state")
       ? query.get("state")
-      : (window.location.search = "?state=58")
+      : (window.location.search = `?state=${STATE_SELECTED_DEFAULT}`)
   );
 
-  const [selectedDays, setSelectedDays] = useState(DAYS_LIST[1].days);
+  const [selectedDays, setSelectedDays] = useState(DAYS_SELECTED_DEFAULT);
 
   useEffect(() => {
     if (selectedState)
-      fetchStateWiseCovidCases(selectedState, DAYS_LIST[1].days);
+      fetchStateWiseCovidCases(selectedState, DAYS_SELECTED_DEFAULT);
   }, [fetchStates, fetchStateWiseCovidCases, selectedState]);
 
   return (
