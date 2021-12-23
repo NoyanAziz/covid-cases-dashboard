@@ -12,7 +12,7 @@ import {
   DROPDOWN_MARGIN_LEFT,
   DROPDOWN_MIN_WIDTH,
   GRAPH_TYPE_OPTIONS,
-} from "../../constants";
+} from "../../../constants";
 
 export const GraphTypeDropDownMenu = ({
   selectedGraphType,

@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { DROPDOWN_MARGIN_LEFT, DROPDOWN_MIN_WIDTH } from "../../constants";
+import { DROPDOWN_MARGIN_LEFT, DROPDOWN_MIN_WIDTH } from "../../../constants";
 
 export const GraphValueDropDownMenu = ({
   selectedGraphValue,

@@ -3,16 +3,15 @@ import { connect } from "react-redux";
 
 import { Card, List, ListItem } from "@mui/material";
 
-import { fetchStates } from "../../../redux/actions/parametersFetchAction";
 import { DAYS_LIST } from "../../../constants";
 import { fetchStateWiseCovidCases } from "../../../redux/actions/us_cases_actions/stateWiseCovidCasesAction";
-import { DaysDropDownMenu } from "../../common_components/DaysDropDownMenu";
+import { DaysDropDownMenu } from "../../common_components/common_drop_down_menus/DaysDropDownMenu";
 import { StateDropDownMenu } from "./StateDropDownMenu";
-import { GraphValueDropDownMenu } from "../../common_components/GraphValueDropDownMenu";
+import { GraphValueDropDownMenu } from "../../common_components/common_drop_down_menus/GraphValueDropDownMenu";
 import { useQuery } from "../../../utils";
-import { GraphTypeDropDownMenu } from "../../common_components/GraphTypeDropDownMenu";
+import { GraphTypeDropDownMenu } from "../../common_components/common_drop_down_menus/GraphTypeDropDownMenu";
 
-export const UnconnectedUSSelectionBar = ({
+export const UnconnectedUSSelectionCard = ({
   selectedGraphValue,
   setSelectedGraphValue,
   selectedGraphType,
@@ -32,7 +31,6 @@ export const UnconnectedUSSelectionBar = ({
   const [selectedDays, setSelectedDays] = useState(DAYS_LIST[1].days);
 
   useEffect(() => {
-    fetchStates();
     if (selectedState)
       fetchStateWiseCovidCases(selectedState, DAYS_LIST[1].days);
   }, [fetchStates, fetchStateWiseCovidCases, selectedState]);
@@ -81,16 +79,11 @@ export const UnconnectedUSSelectionBar = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  states: state.parameters.states,
-});
-
 const mapDispatchToProps = {
-  fetchStates: fetchStates,
   fetchStateWiseCovidCases: fetchStateWiseCovidCases,
 };
 
-export const USSelectionBar = connect(
-  mapStateToProps,
+export const USSelectionCard = connect(
+  null,
   mapDispatchToProps
-)(UnconnectedUSSelectionBar);
+)(UnconnectedUSSelectionCard);

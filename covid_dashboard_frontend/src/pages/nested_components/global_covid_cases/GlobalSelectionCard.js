@@ -3,31 +3,35 @@ import { connect } from "react-redux";
 
 import { Card, List, ListItem } from "@mui/material";
 
-import {
-  fetchCountries,
-  fetchProvinces,
-} from "../../../redux/actions/parametersFetchAction";
+import { fetchProvinces } from "../../../redux/actions/dropdown_options_action/parametersFetchAction";
 import { DAYS_LIST } from "../../../constants";
 import { fetchCountryWiseCovidCases } from "../../../redux/actions/global_cases_actions/countryWiseCovidCasesAction";
 import { fetchProvinceWiseCovidCases } from "../../../redux/actions/global_cases_actions/provinceWiseCovidCasesAction";
 import { CountryDropDownMenu } from "./drop_down_menus/CountryDropDownMenu";
 import { ProvinceDropDownMenu } from "./drop_down_menus/ProvinceDropDownMenu";
-import { DaysDropDownMenu } from "../../common_components/DaysDropDownMenu";
-import { GraphValueDropDownMenu } from "../../common_components/GraphValueDropDownMenu";
+import { DaysDropDownMenu } from "../../common_components/common_drop_down_menus/DaysDropDownMenu";
+import { GraphValueDropDownMenu } from "../../common_components/common_drop_down_menus/GraphValueDropDownMenu";
 import { useQuery } from "../../../utils";
-import { GraphTypeDropDownMenu } from "../../common_components/GraphTypeDropDownMenu";
+import { GraphTypeDropDownMenu } from "../../common_components/common_drop_down_menus/GraphTypeDropDownMenu";
 
 export const UnconnectedGlobalSelectionCard = ({
   selectedGraphValue,
   setSelectedGraphValue,
+
   selectedGraphType,
   setSelectedGraphType,
+
   fetchCountries,
   fetchProvinces,
+
   countries,
   provinces,
+
   fetchCountryWiseCovidCases,
   fetchProvinceWiseCovidCases,
+
+  countriesLoading,
+  provincesLoading,
 }) => {
   const query = useQuery();
 
@@ -44,7 +48,6 @@ export const UnconnectedGlobalSelectionCard = ({
   const [selectedDays, setSelectedDays] = useState(DAYS_LIST[1].days);
 
   useEffect(() => {
-    fetchCountries();
     if (selectedCountry) {
       fetchProvinces(selectedCountry);
       if (selectedProvince) {
@@ -127,11 +130,9 @@ export const UnconnectedGlobalSelectionCard = ({
 };
 
 const mapStateToProps = (state) => ({
-  countries: state.parameters.countries,
   provinces: state.parameters.provinces,
 });
 const mapDispatchToProps = {
-  fetchCountries: fetchCountries,
   fetchProvinces: fetchProvinces,
   fetchCountryWiseCovidCases: fetchCountryWiseCovidCases,
   fetchProvinceWiseCovidCases: fetchProvinceWiseCovidCases,

@@ -15,9 +15,9 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route exact path="/global-cases/" element={<GlobalCovidCases />} />
-          <Route exact path="/us-cases/" element={<USCovidCases />} />
-          <Route exact path="/" element={<Navigate to="global-cases" />} />
+          <Route exact path="/global-cases" element={<GlobalCovidCases />} />
+          <Route exact path="/us-cases" element={<USCovidCases />} />
+          <Route exact path="/" element={<Navigate to="/global-cases" />} />
         </Routes>
       </Router>
     </div>

@@ -1,4 +1,8 @@
 import axios from "axios";
+import {
+  setCountriesLoading,
+  setStatesLoading,
+} from "../loading_action/loadingAction";
 
 export const SET_COUNTRIES = "SET_COUNTRIES";
 export const SET_PROVINCES = "SET_PROVINCES";
@@ -26,12 +30,14 @@ export function setStates(states) {
 }
 
 export const fetchCountries = () => async (dispatch) => {
+  dispatch(setCountriesLoading(true));
   axios
     .get("http://127.0.0.1:8000/countries/")
     .then((res) => {
       console.log(res);
       console.log(res.data);
       dispatch(setCountries(res.data));
+      dispatch(setCountriesLoading(false));
     })
     .catch((error) => {
       if (error.response) {
@@ -56,12 +62,16 @@ export const fetchProvinces = (countryName) => async (dispatch) => {
 };
 
 export const fetchStates = () => async (dispatch) => {
+  dispatch(setStatesLoading(true));
+
   axios
     .get("http://127.0.0.1:8000/states/")
     .then((res) => {
       console.log(res);
       console.log(res.data);
       dispatch(setStates(res.data));
+
+      dispatch(setStatesLoading(false));
     })
     .catch((error) => {
       if (error.response) {

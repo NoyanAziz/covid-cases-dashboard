@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { DROPDOWN_MIN_WIDTH } from "../../constants";
+import { DROPDOWN_MIN_WIDTH } from "../../../constants";
 
 export const DaysDropDownMenu = ({
   selectedDays,

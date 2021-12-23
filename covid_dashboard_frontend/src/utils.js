@@ -88,7 +88,7 @@ export const getGraphOptions = (selectedValue, selectedArea) => {
     },
 
     noData: {
-      text: "Select an option!!!",
+      text: "No data available for these parameters!!!",
       style: {
         fontSize: "20px",
       },
