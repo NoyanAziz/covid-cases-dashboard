@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import { GRAPH_TYPE_SELECTED_DEFAULT } from "./constants";
 
 export const prepareDiscreteDataForGraph = (array, value) => {
   var result = [];
@@ -119,7 +120,7 @@ export const getDataSeries = (dataSeriesValue, data, graphType) => {
       name: dataSeriesValue,
       data:
         data && data.length > 0
-          ? graphType === "Discrete"
+          ? graphType === GRAPH_TYPE_SELECTED_DEFAULT
             ? prepareDiscreteDataForGraph(data, dataSeriesValue)
             : prepareCumulativeDataForGraph(data, dataSeriesValue)
           : [],

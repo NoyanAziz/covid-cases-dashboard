@@ -1,7 +1,7 @@
 export const PRIMARY_COLOR = "#1DA1FF";
 export const SECONDARY_COLOR = "gray";
 
-export const TOOLBAR_OPTIONS_MARGIN_LEFT = 2;
+export const TOOLBAR_OPTIONS_MARGIN_LEFT = 5;
 export const PAGE_LOADER_SIZE = 100;
 
 export const DROPDOWN_MIN_WIDTH = 180;
