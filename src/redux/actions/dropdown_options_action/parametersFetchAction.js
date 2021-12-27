@@ -50,7 +50,7 @@ export const fetchCountries = () => async (dispatch) => {
 
 export const fetchProvinces = (countryName) => async (dispatch) => {
   axios
-    .get(BASE_BACKEND_URL + `provinces/${countryName}`)
+    .get(`${BASE_BACKEND_URL}provinces/${countryName}`)
     .then((res) => {
       console.log(res);
       console.log(res.data);
