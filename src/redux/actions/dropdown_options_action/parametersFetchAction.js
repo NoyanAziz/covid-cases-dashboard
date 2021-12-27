@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BASE_BACKEND_URL } from "../../../constants";
 
 import {
   setCountriesLoading,
@@ -33,7 +34,7 @@ export function setStates(states) {
 export const fetchCountries = () => async (dispatch) => {
   dispatch(setCountriesLoading(true));
   axios
-    .get("http://127.0.0.1:8000/countries/")
+    .get(BASE_BACKEND_URL + "countries/")
     .then((res) => {
       console.log(res);
       console.log(res.data);
@@ -49,7 +50,7 @@ export const fetchCountries = () => async (dispatch) => {
 
 export const fetchProvinces = (countryName) => async (dispatch) => {
   axios
-    .get(`http://127.0.0.1:8000/provinces/${countryName}`)
+    .get(BASE_BACKEND_URL + `provinces/${countryName}`)
     .then((res) => {
       console.log(res);
       console.log(res.data);
@@ -66,7 +67,7 @@ export const fetchStates = () => async (dispatch) => {
   dispatch(setStatesLoading(true));
 
   axios
-    .get("http://127.0.0.1:8000/states/")
+    .get(BASE_BACKEND_URL + "states/")
     .then((res) => {
       console.log(res);
       console.log(res.data);

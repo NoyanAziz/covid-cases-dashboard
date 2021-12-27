@@ -9,6 +9,8 @@ export const GRAPH_LOADER_SIZE = 60;
 
 export const GRAPH_HEIGHT = 500;
 
+export const BASE_BACKEND_URL = "https://noyan-covid-dashboard.herokuapp.com/";
+
 export const PAGE_TITLES = {
   globalCovidCases: "Global Covid Cases",
   usCovidCases: "US Covid Cases",

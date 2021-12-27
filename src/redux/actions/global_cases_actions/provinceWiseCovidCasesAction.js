@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BASE_BACKEND_URL } from "../../../constants";
 
 import { setGlobalCovidCasesLoading } from "../loading_action/loadingAction";
 import { setGlobalCovidCases } from "./globalCovidCasesAction";
@@ -8,7 +9,7 @@ export const fetchProvinceWiseCovidCases =
     dispatch(setGlobalCovidCasesLoading(true));
     axios
       .get(
-        `http://127.0.0.1:8000/country-province-cases/${provinceId}/?days=${days}`
+        BASE_BACKEND_URL + `country-province-cases/${provinceId}/?days=${days}`
       )
       .then((res) => {
         console.log(res);
