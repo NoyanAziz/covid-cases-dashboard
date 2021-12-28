@@ -59,7 +59,7 @@ export const GRAPH_TYPE_OPTIONS = [
 ];
 
 export const DAYS_SELECTED_DEFAULT = 31;
-export const COUNTRY_SELECTED_DEFAULT = "Pakistan";
+export const COUNTRY_SELECTED_DEFAULT = "Oman";
 export const STATE_SELECTED_DEFAULT = "58";
 export const GRAPH_TYPE_SELECTED_DEFAULT = "Discrete";
 export const GRAPH_VALUE_SELECTED_DEFAULT = "confirmed";
