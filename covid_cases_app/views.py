@@ -66,6 +66,9 @@ class CountryCaseViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = "name"
     lookup_url_kwarg = "name"
 
+    def get_queryset(self):
+        return filtered_covid_cases_get_queryset(Country, self.request.query_params)
+
     def retrieve(self, request, name=None, *args, **kwargs):
         country = get_object_or_404(Country.objects.all(), name=name)
 

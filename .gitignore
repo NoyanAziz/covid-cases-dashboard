@@ -65,6 +65,6 @@ target/
 .vscode
 
 # Custom
-.DS_Store
 .env
 covid_dashboard_frontend/
+staticfiles/
