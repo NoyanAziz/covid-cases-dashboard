@@ -1,30 +1,14 @@
 import csv
 
-from datetime import datetime
+import datetime
 import requests
 from django.db import IntegrityError
+from django.db.models import Prefetch
 
 from covid_cases_app.models import Country, CountryProvince, State, GlobalCovidCase, USCovidCase
-
-GLOBAL_CONFIRMED_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data" \
-                       "/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
-GLOBAL_DEATHS_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data" \
-                    "/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
-GLOBAL_RECOVERED_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data" \
-                       "/csse_covid_19_time_series/time_series_covid19_recovered_global.csv"
-
-US_CONFIRMED_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data" \
-                   "/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv"
-US_DEATHS_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data" \
-                "/csse_covid_19_time_series/time_series_covid19_deaths_US.csv"
-
-COUNTRY_INDEX = 1
-PROVINCE_INDEX = 0
-STATE_INDEX = 6
-
-GLOBAL_VALUE_INDEX_START = 4
-US_CONFIRMED_INDEX_START = 11
-US_DEATHS_INDEX_START = 12
+from .constants import GLOBAL_CONFIRMED_URL, GLOBAL_DEATHS_URL, GLOBAL_RECOVERED_URL, US_CONFIRMED_URL, US_DEATHS_URL, \
+    COUNTRY_INDEX, PROVINCE_INDEX, STATE_INDEX, GLOBAL_VALUE_INDEX_START, US_CONFIRMED_INDEX_START, \
+    US_DEATHS_INDEX_START
 
 
 def fetch_cases_from_urls():
@@ -120,8 +104,8 @@ def get_object_list(global_confirmed_cases, global_deaths_cases, global_recovere
                     us_confirmed_cases_row[US_CONFIRMED_INDEX_START:],
                     us_deaths_cases_row[US_DEATHS_INDEX_START:]):
 
-            global_date = datetime.strptime(un_formatted_global_date, "%m/%d/%y").strftime("%Y-%m-%d")
-            us_date = datetime.strptime(un_formatted_us_date, "%m/%d/%y").strftime("%Y-%m-%d")
+            global_date = datetime.datetime.strptime(un_formatted_global_date, "%m/%d/%y").strftime("%Y-%m-%d")
+            us_date = datetime.datetime.strptime(un_formatted_us_date, "%m/%d/%y").strftime("%Y-%m-%d")
 
             global_covid_cases.append(
                 GlobalCovidCase(date=global_date, confirmed=global_confirmed, deaths=global_deaths,
@@ -154,3 +138,39 @@ def get_object_list(global_confirmed_cases, global_deaths_cases, global_recovere
                                               state_id=state_id))
 
     return global_covid_cases, us_covid_cases
+
+
+def filtered_covid_cases_get_queryset(model, params):
+    today = datetime.date.today()
+    passed_days = params.get("days", None)
+
+    if passed_days and passed_days.isdigit():
+        starting_date = today - datetime.timedelta(days=int(passed_days))
+        queryset = model.objects.prefetch_related(
+            Prefetch("covid_cases", queryset=GlobalCovidCase.objects.filter(date__gte=starting_date),
+                     to_attr="filtered_covid_cases")
+        )
+
+        return queryset
+
+    else:
+        queryset = model.objects.prefetch_related(
+            Prefetch("covid_cases", queryset=GlobalCovidCase.objects.all(), to_attr="filtered_covid_cases")
+        )
+
+        return queryset
+
+
+def filtered_global_us_get_queryset(model, params):
+    today = datetime.date.today()
+    passed_days = params.get("days", None)
+
+    if passed_days and passed_days.isdigit():
+        starting_date = today - datetime.timedelta(days=int(passed_days))
+        queryset = model.objects.filter(date__gte=starting_date)
+
+        return queryset
+
+    else:
+        queryset = model.objects.all()
+        return queryset

@@ -3,48 +3,13 @@ import datetime
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django_filters import rest_framework as filters
-from django.db.models import Prefetch, Sum, Count
+from django.db.models import Sum
 from rest_framework import viewsets
 
 from covid_cases_app.models import Country, CountryProvince, GlobalCovidCase, USCovidCase, State
 from covid_cases_app.serializers import CountryCaseSerializer, CountryProvinceCaseSerializer, GlobalCaseSerializer, \
     USCaseSerializer, CountryNameSerializer, StateNameAndIdSerializer, CountryProvinceNameSerializer
-
-
-def filtered_covid_cases_get_queryset(model, params):
-    today = datetime.date.today()
-    passed_days = params.get("days", None)
-
-    if passed_days and passed_days.isdigit():
-        starting_date = today - datetime.timedelta(days=int(passed_days))
-        queryset = model.objects.prefetch_related(
-            Prefetch("covid_cases", queryset=GlobalCovidCase.objects.filter(date__gte=starting_date),
-                     to_attr="filtered_covid_cases")
-        )
-
-        return queryset
-
-    else:
-        queryset = model.objects.prefetch_related(
-            Prefetch("covid_cases", queryset=GlobalCovidCase.objects.all(), to_attr="filtered_covid_cases")
-        )
-
-        return queryset
-
-
-def filtered_global_us_get_queryset(model, params):
-    today = datetime.date.today()
-    passed_days = params.get("days", None)
-
-    if passed_days and passed_days.isdigit():
-        starting_date = today - datetime.timedelta(days=int(passed_days))
-        queryset = model.objects.filter(date__gte=starting_date)
-
-        return queryset
-
-    else:
-        queryset = model.objects.all()
-        return queryset
+from .helper import filtered_covid_cases_get_queryset, filtered_global_us_get_queryset
 
 
 class CountryNameViewSet(viewsets.ReadOnlyModelViewSet):
