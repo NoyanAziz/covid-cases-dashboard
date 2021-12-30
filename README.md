@@ -1,4 +1,11 @@
-# Getting Started with Create React App
+# Covid Cases Dashboard React App
+
+## Cloning the Repo
+#### Clone the branch as described in the following link:
+
+#### https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository
+
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
