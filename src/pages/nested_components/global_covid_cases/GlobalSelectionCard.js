@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import { Card, List, ListItem } from "@mui/material";
+import { Card, List } from "@mui/material";
 
 import { fetchProvinces } from "../../../redux/actions/dropdown_options_action/parametersFetchAction";
 import {
@@ -9,6 +9,7 @@ import {
   COUNTRY_SELECTED_DEFAULT,
   DAYS_LIST,
   DAYS_SELECTED_DEFAULT,
+  GLOBAL_GRAPH_VALUE_OPTIONS,
 } from "../../../constants";
 import { fetchCountryWiseCovidCases } from "../../../redux/actions/global_cases_actions/countryWiseCovidCasesAction";
 import { fetchProvinceWiseCovidCases } from "../../../redux/actions/global_cases_actions/provinceWiseCovidCasesAction";
@@ -18,6 +19,7 @@ import { DaysDropDownMenu } from "../../common_components/common_drop_down_menus
 import { GraphValueDropDownMenu } from "../../common_components/common_drop_down_menus/GraphValueDropDownMenu";
 import { useQuery } from "../../../utils";
 import { GraphTypeDropDownMenu } from "../../common_components/common_drop_down_menus/GraphTypeDropDownMenu";
+import { StyledListItem } from "../../../styled_components/SelectionCardStyles";
 
 export const UnconnectedGlobalSelectionCard = ({
   selectedGraphValue,
@@ -34,9 +36,6 @@ export const UnconnectedGlobalSelectionCard = ({
 
   fetchCountryWiseCovidCases,
   fetchProvinceWiseCovidCases,
-
-  countriesLoading,
-  provincesLoading,
 }) => {
   const query = useQuery();
 
@@ -79,7 +78,7 @@ export const UnconnectedGlobalSelectionCard = ({
   return (
     <Card elevation={0}>
       <List>
-        <ListItem sx={{ mx: 5 }}>
+        <StyledListItem>
           <CountryDropDownMenu
             selectedCountry={selectedCountry}
             setSelectedCountry={setSelectedCountry}
@@ -88,9 +87,9 @@ export const UnconnectedGlobalSelectionCard = ({
             fetchCountryWiseCovidCases={fetchCountryWiseCovidCases}
             countries={countries}
           />
-        </ListItem>
+        </StyledListItem>
 
-        <ListItem sx={{ m: 5 }}>
+        <StyledListItem>
           <ProvinceDropDownMenu
             selectedProvince={selectedProvince}
             setSelectedProvince={setSelectedProvince}
@@ -100,9 +99,9 @@ export const UnconnectedGlobalSelectionCard = ({
             fetchProvinceWiseCovidCases={fetchProvinceWiseCovidCases}
             provinces={provinces}
           />
-        </ListItem>
+        </StyledListItem>
 
-        <ListItem sx={{ m: 5 }}>
+        <StyledListItem>
           <DaysDropDownMenu
             selectedDays={selectedDays}
             setSelectedDays={setSelectedDays}
@@ -112,26 +111,22 @@ export const UnconnectedGlobalSelectionCard = ({
             selectedCountry={selectedCountry}
             days_list={DAYS_LIST}
           />
-        </ListItem>
+        </StyledListItem>
 
-        <ListItem sx={{ m: 5 }}>
+        <StyledListItem>
           <GraphValueDropDownMenu
             selectedGraphValue={selectedGraphValue}
             setSelectedGraphValue={setSelectedGraphValue}
-            options={[
-              { title: "Confirmed", value: "confirmed" },
-              { title: "Deaths", value: "deaths" },
-              { title: "Recovered", value: "recovered" },
-            ]}
+            options={GLOBAL_GRAPH_VALUE_OPTIONS}
           />
-        </ListItem>
+        </StyledListItem>
 
-        <ListItem sx={{ m: 5 }}>
+        <StyledListItem>
           <GraphTypeDropDownMenu
             selectedGraphType={selectedGraphType}
             setSelectedGraphType={setSelectedGraphType}
           />
-        </ListItem>
+        </StyledListItem>
       </List>
     </Card>
   );

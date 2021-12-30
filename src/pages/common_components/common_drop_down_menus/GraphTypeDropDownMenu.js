@@ -1,18 +1,9 @@
 import React from "react";
 
-import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Typography,
-} from "@mui/material";
+import { InputLabel, Select, MenuItem, Typography } from "@mui/material";
 
-import {
-  DROPDOWN_MIN_WIDTH,
-  DROP_DOWN_LABELS,
-  GRAPH_TYPE_OPTIONS,
-} from "../../../constants";
+import { DROP_DOWN_LABELS, GRAPH_TYPE_OPTIONS } from "../../../constants";
+import { StyledFormControl } from "../../../styled_components/SelectionCardStyles";
 
 export const GraphTypeDropDownMenu = ({
   selectedGraphType,
@@ -23,7 +14,7 @@ export const GraphTypeDropDownMenu = ({
   };
 
   return (
-    <FormControl sx={{ minWidth: DROPDOWN_MIN_WIDTH }}>
+    <StyledFormControl>
       <InputLabel id="graph-type-label">
         {DROP_DOWN_LABELS.graphType}
       </InputLabel>
@@ -41,6 +32,6 @@ export const GraphTypeDropDownMenu = ({
           </MenuItem>
         ))}
       </Select>
-    </FormControl>
+    </StyledFormControl>
   );
 };

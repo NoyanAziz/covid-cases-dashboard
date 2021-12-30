@@ -1,15 +1,10 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Typography,
-} from "@mui/material";
+import { InputLabel, Select, MenuItem, Typography } from "@mui/material";
 
-import { DROPDOWN_MIN_WIDTH, DROP_DOWN_LABELS } from "../../../../constants";
+import { DROP_DOWN_LABELS } from "../../../../constants";
+import { StyledFormControl } from "../../../../styled_components/SelectionCardStyles";
 
 export const CountryDropDownMenu = ({
   selectedCountry,
@@ -27,11 +22,7 @@ export const CountryDropDownMenu = ({
   };
 
   return (
-    <FormControl
-      sx={{
-        minWidth: DROPDOWN_MIN_WIDTH,
-      }}
-    >
+    <StyledFormControl>
       <InputLabel id="country-label">{DROP_DOWN_LABELS.country}</InputLabel>
       <Select
         labelId="country-label"
@@ -51,6 +42,6 @@ export const CountryDropDownMenu = ({
           </MenuItem>
         ))}
       </Select>
-    </FormControl>
+    </StyledFormControl>
   );
 };

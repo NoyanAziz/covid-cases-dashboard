@@ -1,14 +1,9 @@
 import React from "react";
 
-import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Typography,
-} from "@mui/material";
+import { InputLabel, Select, MenuItem, Typography } from "@mui/material";
 
-import { DROPDOWN_MIN_WIDTH, DROP_DOWN_LABELS } from "../../../constants";
+import { DROP_DOWN_LABELS } from "../../../constants";
+import { StyledFormControl } from "../../../styled_components/SelectionCardStyles";
 
 export const GraphValueDropDownMenu = ({
   selectedGraphValue,
@@ -20,7 +15,7 @@ export const GraphValueDropDownMenu = ({
   };
 
   return (
-    <FormControl sx={{ minWidth: DROPDOWN_MIN_WIDTH }}>
+    <StyledFormControl>
       <InputLabel id="graph-value-label">
         {DROP_DOWN_LABELS.graphValue}
       </InputLabel>
@@ -38,6 +33,6 @@ export const GraphValueDropDownMenu = ({
           </MenuItem>
         ))}
       </Select>
-    </FormControl>
+    </StyledFormControl>
   );
 };

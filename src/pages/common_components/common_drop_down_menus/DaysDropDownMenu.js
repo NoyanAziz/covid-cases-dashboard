@@ -1,18 +1,8 @@
 import React from "react";
 
-import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Typography,
-} from "@mui/material";
-
-import {
-  ALL_PROVINCE_ITEM,
-  DROPDOWN_MIN_WIDTH,
-  DROP_DOWN_LABELS,
-} from "../../../constants";
+import { InputLabel, Select, MenuItem, Typography } from "@mui/material";
+import { ALL_PROVINCE_ITEM, DROP_DOWN_LABELS } from "../../../constants";
+import { StyledFormControl } from "../../../styled_components/SelectionCardStyles";
 
 export const DaysDropDownMenu = ({
   selectedDays,
@@ -39,7 +29,7 @@ export const DaysDropDownMenu = ({
   };
 
   return (
-    <FormControl sx={{ minWidth: DROPDOWN_MIN_WIDTH }}>
+    <StyledFormControl>
       <InputLabel id="days-label">{DROP_DOWN_LABELS.days}</InputLabel>
 
       <Select
@@ -55,6 +45,6 @@ export const DaysDropDownMenu = ({
           </MenuItem>
         ))}
       </Select>
-    </FormControl>
+    </StyledFormControl>
   );
 };

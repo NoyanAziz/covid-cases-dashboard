@@ -1,10 +1,11 @@
 import React from "react";
 
-import { Card, CircularProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import Chart from "react-apexcharts";
 
 import { getDataSeries, getGraphOptions } from "../../utils";
 import { GRAPH_HEIGHT, GRAPH_LOADER_SIZE } from "../../constants";
+import { StyledGraphCard } from "../../styled_components/GraphStyles";
 
 export const DataGraph = ({
   covidCases,
@@ -14,7 +15,7 @@ export const DataGraph = ({
   selectedArea,
 }) => {
   return (
-    <Card elevation={0}>
+    <StyledGraphCard elevation={0}>
       {covidCasesLoading ? (
         <CircularProgress size={GRAPH_LOADER_SIZE} />
       ) : (
@@ -31,6 +32,6 @@ export const DataGraph = ({
           />
         </>
       )}
-    </Card>
+    </StyledGraphCard>
   );
 };

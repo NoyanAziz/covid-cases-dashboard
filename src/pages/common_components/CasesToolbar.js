@@ -1,22 +1,13 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
-import {
-  Box,
-  AppBar,
-  Container,
-  Divider,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { Box, AppBar, Container, Divider, Toolbar } from "@mui/material";
 
 import Logo from "../../Logo";
+import { PAGE_TITLES, PRIMARY_COLOR, SECONDARY_COLOR } from "../../constants";
 import {
-  PAGE_TITLES,
-  PRIMARY_COLOR,
-  SECONDARY_COLOR,
-  TOOLBAR_OPTIONS_MARGIN_LEFT,
-} from "../../constants";
+  StyledAppBarTitle,
+  StyledLink,
+} from "../../styled_components/AppBarStyles";
 
 export const CasesToolbar = () => {
   return (
@@ -25,37 +16,37 @@ export const CasesToolbar = () => {
         <Container maxWidth="xl">
           <Toolbar>
             <Logo />
-            <Typography
+            <StyledAppBarTitle
+              id="global-cases-title"
               variant="body"
               noWrap
-              component={Link}
+              component={StyledLink}
               underline="none"
               to="/global-cases"
-              sx={{ ml: TOOLBAR_OPTIONS_MARGIN_LEFT }}
               style={
                 window.location.pathname.split("/")[1] === "global-cases"
-                  ? { color: PRIMARY_COLOR, textDecoration: "none" }
-                  : { color: SECONDARY_COLOR, textDecoration: "none" }
+                  ? { color: PRIMARY_COLOR }
+                  : { color: SECONDARY_COLOR }
               }
             >
               {PAGE_TITLES.globalCovidCases}
-            </Typography>
+            </StyledAppBarTitle>
 
-            <Typography
+            <StyledAppBarTitle
+              id="us-cases-title"
               variant="body"
               noWrap
-              component={Link}
+              component={StyledLink}
               underline="none"
               to="/us-cases"
-              sx={{ ml: TOOLBAR_OPTIONS_MARGIN_LEFT }}
               style={
                 window.location.pathname.split("/")[1] === "us-cases"
-                  ? { color: PRIMARY_COLOR, textDecoration: "none" }
-                  : { color: SECONDARY_COLOR, textDecoration: "none" }
+                  ? { color: PRIMARY_COLOR }
+                  : { color: SECONDARY_COLOR }
               }
             >
               {PAGE_TITLES.usCovidCases}
-            </Typography>
+            </StyledAppBarTitle>
           </Toolbar>
         </Container>
       </AppBar>

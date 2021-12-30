@@ -1,19 +1,10 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Typography,
-} from "@mui/material";
+import { InputLabel, Select, MenuItem, Typography } from "@mui/material";
 
-import {
-  ALL_PROVINCE_ITEM,
-  DROPDOWN_MIN_WIDTH,
-  DROP_DOWN_LABELS,
-} from "../../../../constants";
+import { ALL_PROVINCE_ITEM, DROP_DOWN_LABELS } from "../../../../constants";
+import { StyledFormControl } from "../../../../styled_components/SelectionCardStyles";
 
 export const ProvinceDropDownMenu = ({
   selectedProvince,
@@ -34,7 +25,7 @@ export const ProvinceDropDownMenu = ({
   };
 
   return (
-    <FormControl sx={{ minWidth: DROPDOWN_MIN_WIDTH }}>
+    <StyledFormControl>
       <InputLabel id="province-label">{DROP_DOWN_LABELS.province}</InputLabel>
       <Select
         labelId="province-label"
@@ -67,6 +58,6 @@ export const ProvinceDropDownMenu = ({
             )
           : null}
       </Select>
-    </FormControl>
+    </StyledFormControl>
   );
 };

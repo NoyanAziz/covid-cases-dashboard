@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import {
-  Box,
-  Typography,
-  Grid,
-  Divider,
-  CircularProgress,
-} from "@mui/material";
+import { Box, Grid, Divider, CircularProgress } from "@mui/material";
 
 import { CasesToolbar } from "./common_components/CasesToolbar";
 import { USSelectionCard } from "./nested_components/us_covid_cases/USSelectionCard";
@@ -17,9 +11,15 @@ import { fetchStates } from "../redux/actions/dropdown_options_action/parameters
 import {
   GRAPH_TYPE_SELECTED_DEFAULT,
   GRAPH_VALUE_SELECTED_DEFAULT,
+  PAGE_TITLES,
   PRIMARY_COLOR,
   STATE_SELECTED_DEFAULT,
 } from "../constants";
+import { StyledContainerGrid } from "../styled_components/ContainerGridStyles";
+import {
+  HeadingBox,
+  HeadingTypography,
+} from "../styled_components/MainPageStyles";
 
 export const UnconnectedUSCovidCases = ({
   states,
@@ -44,26 +44,17 @@ export const UnconnectedUSCovidCases = ({
 
   return (
     <Box className="div">
-      <CasesToolbar sx={{ minHeight: "10vh" }} />
-      <Box
-        justifyItems={"flex-start"}
-        sx={{ width: "100%", maxWidth: 500, p: 2 }}
-      >
-        <Typography
-          component="div"
-          variant="h3"
-          color={PRIMARY_COLOR}
-          style={{ fontFamily: "sans-serif" }}
-        >
-          US Covid Cases
-        </Typography>
-      </Box>
+      <CasesToolbar />
+      <HeadingBox justifyItems={"flex-start"}>
+        <HeadingTypography component="div" variant="h3" color={PRIMARY_COLOR}>
+          {PAGE_TITLES.usCovidCases}
+        </HeadingTypography>
+      </HeadingBox>
 
-      <Grid
+      <StyledContainerGrid
         container
         alignItems={"center"}
         justifyContent={"space-between"}
-        sx={{ minHeight: "60vh" }}
       >
         {statesLoading ? (
           <Grid item xs={12}>
@@ -71,7 +62,7 @@ export const UnconnectedUSCovidCases = ({
           </Grid>
         ) : (
           <>
-            <Grid item xs={2} sx={{ py: 10 }}>
+            <Grid item xs={2}>
               <USSelectionCard
                 selectedGraphValue={selectedGraphValue}
                 setSelectedGraphValue={setSelectedGraphValue}
@@ -84,7 +75,7 @@ export const UnconnectedUSCovidCases = ({
 
             <Divider orientation="vertical" flexItem />
 
-            <Grid item xs={9} sx={{ p: 10 }}>
+            <Grid item xs={9}>
               <DataGraph
                 covidCases={usCovidCases}
                 covidCasesLoading={usCovidCasesLoading}
@@ -99,7 +90,7 @@ export const UnconnectedUSCovidCases = ({
             </Grid>
           </>
         )}
-      </Grid>
+      </StyledContainerGrid>
     </Box>
   );
 };

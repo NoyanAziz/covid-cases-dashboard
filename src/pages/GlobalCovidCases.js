@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import {
-  Box,
-  Divider,
-  Grid,
-  Typography,
-  CircularProgress,
-} from "@mui/material";
+import { Box, Divider, Grid, CircularProgress } from "@mui/material";
 
 import { CasesToolbar } from "./common_components/CasesToolbar";
 import { GlobalSelectionCard } from "./nested_components/global_covid_cases/GlobalSelectionCard";
@@ -22,6 +16,11 @@ import {
   PAGE_TITLES,
   PRIMARY_COLOR,
 } from "../constants";
+import {
+  HeadingBox,
+  HeadingTypography,
+} from "../styled_components/MainPageStyles";
+import { StyledContainerGrid } from "../styled_components/ContainerGridStyles";
 
 export const UnconnectedGlobalCovidCases = ({
   countries,
@@ -46,27 +45,18 @@ export const UnconnectedGlobalCovidCases = ({
 
   return (
     <Box className="div">
-      <CasesToolbar sx={{ minHeight: "10vh" }} />
+      <CasesToolbar />
 
-      <Box
-        justifyItems={"flex-start"}
-        sx={{ width: "100%", maxWidth: 500, p: 2 }}
-      >
-        <Typography
-          component="div"
-          variant="h3"
-          color={PRIMARY_COLOR}
-          style={{ fontFamily: "sans-serif" }}
-        >
+      <HeadingBox justifyItems={"flex-start"}>
+        <HeadingTypography component="div" variant="h3" color={PRIMARY_COLOR}>
           {PAGE_TITLES.globalCovidCases}
-        </Typography>
-      </Box>
+        </HeadingTypography>
+      </HeadingBox>
 
-      <Grid
+      <StyledContainerGrid
         container
         alignItems={"center"}
         justifyContent={"space-between"}
-        sx={{ minHeight: "60vh" }}
       >
         {countriesLoading ? (
           <Grid item xs={12}>
@@ -74,7 +64,7 @@ export const UnconnectedGlobalCovidCases = ({
           </Grid>
         ) : (
           <>
-            <Grid item xs={2} sx={{ py: 10 }}>
+            <Grid item xs={2}>
               <GlobalSelectionCard
                 selectedGraphValue={selectedGraphValue}
                 setSelectedGraphValue={setSelectedGraphValue}
@@ -86,7 +76,7 @@ export const UnconnectedGlobalCovidCases = ({
 
             <Divider orientation="vertical" flexItem />
 
-            <Grid item xs={9} sx={{ p: 10 }}>
+            <Grid item xs={9}>
               <DataGraph
                 covidCases={globalCovidCases}
                 covidCasesLoading={globalCovidCasesLoading}
@@ -101,7 +91,7 @@ export const UnconnectedGlobalCovidCases = ({
             </Grid>
           </>
         )}
-      </Grid>
+      </StyledContainerGrid>
     </Box>
   );
 };
