@@ -3,7 +3,7 @@ import React from "react";
 import { Box, AppBar, Container, Divider, Toolbar } from "@mui/material";
 
 import Logo from "../../Logo";
-import { PAGE_TITLES, PRIMARY_COLOR, SECONDARY_COLOR } from "../../constants";
+import { PAGE_TITLES } from "../../constants";
 import {
   StyledAppBarTitle,
   StyledLink,
@@ -23,10 +23,8 @@ export const CasesToolbar = () => {
               component={StyledLink}
               underline="none"
               to="/global-cases"
-              style={
+              selected={
                 window.location.pathname.split("/")[1] === "global-cases"
-                  ? { color: PRIMARY_COLOR }
-                  : { color: SECONDARY_COLOR }
               }
             >
               {PAGE_TITLES.globalCovidCases}
@@ -39,11 +37,7 @@ export const CasesToolbar = () => {
               component={StyledLink}
               underline="none"
               to="/us-cases"
-              style={
-                window.location.pathname.split("/")[1] === "us-cases"
-                  ? { color: PRIMARY_COLOR }
-                  : { color: SECONDARY_COLOR }
-              }
+              selected={window.location.pathname.split("/")[1] === "us-cases"}
             >
               {PAGE_TITLES.usCovidCases}
             </StyledAppBarTitle>
